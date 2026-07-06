@@ -1,5 +1,7 @@
 # 导入LangChain核心提示词模板类
 from langchain_core.prompts import PromptTemplate, FewShotPromptTemplate
+# 导入langchain社区聊天模型中的通义千问模型
+from langchain_community.chat_models.tongyi import ChatTongyi
 
 # 定义示例模板，用于格式化单个示例
 example_template = PromptTemplate.from_template("单词:{word},反义词:{antonym}")
@@ -17,4 +19,7 @@ few_shot_template = FewShotPromptTemplate(
 # 调用模板生成提示词，传入具体输入值
 prompt_text = few_shot_template.invoke(input={"input_word": "左"}).to_string()
 # 输出生成的提示词文本
-print(prompt_text)
+# print(prompt_text)
+model = ChatTongyi(model="qwen-max")
+response = model.invoke(input=prompt_text)
+print(response)
